@@ -1,4 +1,4 @@
-export default  (req, res, next) => {
+export const  requestMiddleWare= (req, res, next) => {
     if (!req.context) {
       req.context = {};
     }

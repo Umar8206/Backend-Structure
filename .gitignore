@@ -1,5 +1,6 @@
 node_modules/
-.env
+.env*
+!.env*.example
 app-error.log
 app-info.log
 combined.log
