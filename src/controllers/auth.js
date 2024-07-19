@@ -11,7 +11,7 @@ export const signIn = async (req, res, next) => {
 
     }
 
-    res.body.data = await signIn
+    res.body.data = await service.signIn(payload)
 
     return res.json(res.body)
   } catch (error) {
