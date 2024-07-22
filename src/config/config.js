@@ -16,8 +16,9 @@ const envVarsSchema = Joi.object()
             .required(),
         PORT: Joi.number().required().default(3000),
         JWT_SECRET: Joi.string().required().description('JWT secret key'),
-        BYPASS_PUSH_NOTIFICATION: Joi.boolean().default(false),
-        DEFAULT_OTP: Joi.number().required().default(2022),
+        JWT_EXPIRY: Joi.string().required().default("99y"),
+        BYPASS_PUSH_NOTIFICATION: Joi.boolean().default(false), 
+        DEFAULT_OTP: Joi.number().required().default(2024),
 
         // Database
         MONGODB_URL: Joi.string().required().description('Mongo DB url'),
@@ -66,6 +67,7 @@ export default {
     },
     jwt: {
         secret: envVars.JWT_SECRET,
+        expiresIn:envVars.JWT_EXPIRY
     },
     email: {
         smtp: {
