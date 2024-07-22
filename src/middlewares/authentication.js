@@ -5,7 +5,7 @@ import { logger } from "../config/logger";
 
 
 
-module.exports = (req, res, next) => {
+export default  (req, res, next) => {
   let token = req.headers.authorization;
   // decode token
   if (token) {

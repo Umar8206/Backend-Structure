@@ -30,13 +30,6 @@ const envVarsSchema = Joi.object()
         SMTP_PASSWORD: Joi.string().description('password for email server'),
         SMTP_EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app'),
 
-        // Google
-        // GOOGLE_MAPS_API_KEY: Joi.string().required().description('Google maps apikey'),
-
-        // Monty
-        // MONTY_USERNAME: Joi.string().required().description('Monty username'),
-        // MONTY_APIID: Joi.string().required().description('Monty app id'),
-        // MONTY_SOURCE: Joi.string().required().description('Monty sms source'),
     })
     .unknown()
 

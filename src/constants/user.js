@@ -6,5 +6,6 @@ export const userTypes = {
   export const deviceTypes = {
     android: 'android',
     ios: 'ios',
+    web:"web"
   };
   

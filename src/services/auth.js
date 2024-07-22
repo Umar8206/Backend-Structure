@@ -28,10 +28,10 @@ export const signInService = async (payload) => {
 export const signUpService = async (payload) => {
 
     validate(payload, signUpValidation);
-    let user;
+    let user; 
     let createPayload={...payload}
     user = await findUserByEmail(payload?.email)
-    if (user?._id) throw new Error("User Already Exist")
+    if (user?._id) throw new Error("User Already Exist") 
         if(payload?.password!==payload?.confirmPassword) throw Error("Password Not Matched")
     else {
         const salt = await bcrypt.genSalt(10);

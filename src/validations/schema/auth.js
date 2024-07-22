@@ -7,7 +7,7 @@ export const signInValidation = Joi.object({
     .optional(),
   password: Joi.string().required(),
   fcmid: Joi.string().optional(),
-  deviceType: Joi.string().valid(deviceTypes.android, deviceTypes.ios).optional(),
+  deviceType: Joi.string().valid(deviceTypes.android, deviceTypes.ios,deviceTypes.web).required(),
   fromPortal: Joi.boolean().optional(),
   email: Joi.string().email().required(),
 });
@@ -24,6 +24,6 @@ export const signUpValidation = Joi.object({
   confirmPassword: Joi.string().required(),
 
   fcmid: Joi.string().optional(),
-  deviceType: Joi.string().valid(deviceTypes.android, deviceTypes.ios).optional(),
+  deviceType: Joi.string().valid(deviceTypes.android, deviceTypes.ios,deviceTypes.web).required(),
   fromPortal: Joi.boolean().optional(),
 });
