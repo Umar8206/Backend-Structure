@@ -51,7 +51,7 @@ export const forgotPasswordService = async (payload) => {
     otp: generateOtp(),
     type: otpTypes.forgotPassword,
   }
-  const passwordToken = await crypto.getRandomValues(32).toString()
+  const passwordToken = await crypto.randomBytes(32).toString('hex')
   await sendOtpService(createPayload)
   await updateUserById(user?._id, { resetPasswordToken: passwordToken })
   return {
