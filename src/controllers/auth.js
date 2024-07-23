@@ -1,5 +1,4 @@
-import { userTypes } from "../constants/user.js"
-import { signInService, signUpService } from "../services/auth.js"
+import { signInService, signUpService } from '../services/auth.js'
 
 export const signIn = async (req, res, next) => {
   try {
@@ -10,7 +9,6 @@ export const signIn = async (req, res, next) => {
       fcmid: req.body.fcmid,
       deviceType: req.body.deviceType,
       fromPortal: req.body.fromPortal || false,
-
     }
 
     res.body.data = await signInService(payload)
@@ -20,7 +18,6 @@ export const signIn = async (req, res, next) => {
     next(error)
   }
 }
-
 
 export const signUp = async (req, res, next) => {
   try {
@@ -33,8 +30,7 @@ export const signUp = async (req, res, next) => {
       fcmid: req.body.fcmid,
       deviceType: req.body.deviceType,
       fromPortal: req.body.fromPortal || false,
-userType:req.body.userType,
-
+      userType: req.body.userType,
     }
 
     res.body.data = await signUpService(payload)
@@ -44,3 +40,4 @@ userType:req.body.userType,
     next(error)
   }
 }
+

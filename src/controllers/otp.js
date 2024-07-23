@@ -1,5 +1,5 @@
 import { db } from '../models/index.js'
-import { sendOtpService } from '../services/otp.js'
+import { sendOtpService, verifyOtpService } from '../services/otp.js'
 
 export const sendOtp = async (req, res, next) => {
   try {

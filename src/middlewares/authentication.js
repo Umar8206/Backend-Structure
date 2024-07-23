@@ -1,11 +1,11 @@
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken"
-import config from "../config/config";
-import { logger } from "../config/logger";
+import config from "../config/config.js";
+import { logger } from "../config/logger.js";
 
 
 
-export default  (req, res, next) => {
+export const userAuthentication=  (req, res, next) => {
   let token = req.headers.authorization;
   // decode token
   if (token) {
