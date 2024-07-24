@@ -6,3 +6,6 @@ export const createOtp = async (payload) => {
 export const findOtp = async (email, otp) => {
   return await db.otp.findOne({ otp: otp, email: email })
 }
+export const deleteOtp = async (email, type) => {
+  return await db.otp.deleteMany({ type:type, email: email })
+}

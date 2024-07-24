@@ -18,3 +18,6 @@ export const findUserByEmailOrPhone = async (payload) => {
 export const updateUserByEmail = async (email, payload) => {
   return await db.user.findOneAndUpdate({ email: email }, payload, { new: true })
 }
+export const findUser = async (query, payload) => {
+  return await db.user.findOneAndUpdate(query, payload, { new: true })
+}

@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 import { generateToken } from '../helpers/token.js'
 import validate from '../validations/joi.js'
 import { hashPassword } from '../helpers/functions.js'
-import { otpTypes } from '../constants/otp.js'
+import { otpMethods, otpTypes } from '../constants/otp.js'
 import { generateOtp } from '../helpers/otp.js'
 import { sendOtpService } from './otp.js'
 
@@ -35,26 +35,11 @@ export const signUpService = async (payload) => {
   if (payload?.password !== payload?.confirmPassword) throw Error('Password Not Matched')
   else {
     createPayload.password = await hashPassword(payload?.password)
-    createPayload.token = await generateToken({ _id: user?._id, userType: payload?.userType })
     user = await addUser(createPayload)
+    createPayload.token = await generateToken({ _id: user?._id, userType: payload?.userType })
+    user = await updateUserById(user?._id, createPayload)
     return user
   }
 }
 
-export const forgotPasswordService = async (payload) => {
-  let user
-  user = await findUserById(payload?.userId)
-  if (user?._id) throw new Error('User Not Found')
 
-  const createPayload = {
-    email: user?.email,
-    otp: generateOtp(),
-    type: otpTypes.forgotPassword,
-  }
-  const passwordToken = await crypto.randomBytes(32).toString('hex')
-  await sendOtpService(createPayload)
-  await updateUserById(user?._id, { resetPasswordToken: passwordToken })
-  return {
-    success: true,
-  }
-}
