@@ -37,6 +37,10 @@ const userModel = mongoose.Schema(
       type: String,
       // required: true,
     },
+    profilePic: {
+      type: String,
+      default: null,
+    },
     userType: {
       type: String,
       default: userTypes.appUser,
@@ -51,7 +55,7 @@ const userModel = mongoose.Schema(
     },
     resetPasswordToken: {
       type: String,
-      expires: 60 * 2
+      expires: 60 * 2,
     },
   },
   {

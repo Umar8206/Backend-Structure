@@ -19,14 +19,14 @@ const envVarsSchema = Joi.object()
     JWT_EXPIRY: Joi.string().required().default('99y'),
     BYPASS_PUSH_NOTIFICATION: Joi.boolean().default(false),
     DEFAULT_OTP: Joi.number().required().default(2024),
-   
+
     // Database
     MONGODB_URL: Joi.string().required().description('Mongo DB url'),
     // Redis
     REDIS_HOST: Joi.string().optional(),
     REDIS_PORT: Joi.number().optional(),
-    REDIS_USER:Joi.string().optional(),
-    REDIS_DB:Joi.string().optional(),
+    REDIS_USER: Joi.string().optional(),
+    REDIS_DB: Joi.string().optional(),
     REDIS_PASSWORD: Joi.string().optional(),
     // SMTP
     SMTP_HOST: Joi.string().description('server that will send the emails'),
@@ -34,6 +34,10 @@ const envVarsSchema = Joi.object()
     SMTP_USERNAME: Joi.string().description('username for email server'),
     SMTP_PASSWORD: Joi.string().description('password for email server'),
     SMTP_EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app'),
+
+    CLOUDINARY_NAME: Joi.string().required(),
+    CLOUDINARY_API_KEY: Joi.string().required(),
+    CLOUDINARY_API_SECRET: Joi.string().required(),
   })
   .unknown()
 
@@ -61,12 +65,17 @@ export default {
     url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : 'back'),
     options: {},
   },
-  redis:{
-host: envVars.REDIS_HOST,
-port: envVars.REDIS_PORT,
-password: envVars.REDIS_PASSWORD,
-username: envVars.REDIS_USER,
-db:envVars.REDIS_DB
+  redis: {
+    host: envVars.REDIS_HOST,
+    port: envVars.REDIS_PORT,
+    password: envVars.REDIS_PASSWORD,
+    username: envVars.REDIS_USER,
+    db: envVars.REDIS_DB,
+  },
+  cloudinary: {
+    name: envVars.CLOUDINARY_NAME,
+    apiKey: envVars.CLOUDINARY_API_KEY,
+    apiSecret: envVars.CLOUDINARY_API_SECRET,
   },
   jwt: {
     secret: envVars.JWT_SECRET,

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import config from '../config/config.js'
 import { logger } from '../config/logger.js'
 
-export const userAuthentication =  (req, res, next) => {
+export const userAuthentication = (req, res, next) => {
   let token = req.headers.authorization
   // decode token
   if (token) {
@@ -12,11 +12,11 @@ export const userAuthentication =  (req, res, next) => {
     token = token.slice(7, token.length)
 
     // verifies secret and checks exp
-     jwt.verify(token, config.jwt.secret, function (err, decoded) {
-        console.info(decoded, 'THE DECODED CODE IS->')
+    jwt.verify(token, config.jwt.secret, function (err, decoded) {
+      console.info(decoded, 'THE DECODED CODE IS->')
 
       if (err) {
-        next(StatusCodes.UNAUTHORIZED(ReasonPhrases.UNAUTHORIZED))
+        next({ status: StatusCodes.UNAUTHORIZED, message: ReasonPhrases.UNAUTHORIZED })
       } else {
         req.context.userId = decoded._id
         req.context.userType = decoded.userType
@@ -24,6 +24,6 @@ export const userAuthentication =  (req, res, next) => {
       }
     })
   } else {
-    next(StatusCodes.UNAUTHORIZED(ReasonPhrases.UNAUTHORIZED))
+    next({ status: StatusCodes.UNAUTHORIZED, message: ReasonPhrases.UNAUTHORIZED })
   }
 }
