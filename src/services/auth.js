@@ -1,22 +1,19 @@
 import { signInValidation, signUpValidation } from '../validations/schema/auth.js'
-import { addUser, findUserByEmail, findUserById, updateUserById } from '../repositries/user.js'
-import { ReasonPhrases } from 'http-status-codes'
+import { addUser, findUserByEmail, updateUserById } from '../repositries/user.js'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../helpers/token.js'
 import validate from '../validations/joi.js'
 import { hashPassword } from '../helpers/functions.js'
-import { otpMethods, otpTypes } from '../constants/otp.js'
-import { generateOtp } from '../helpers/otp.js'
-import { sendOtpService } from './otp.js'
+import { Messages } from '../constants/messages.js'
 
 export const signInService = async (payload) => {
   validate(payload, signInValidation)
   let user
   user = await findUserByEmail(payload?.email)
-  if (!user?._id) throw new Error('User Not Found')
+  if (!user?._id) throw new Error(Messages.userNotFound)
   else {
     const isMatch = await bcrypt.compare(payload?.password, user?.password)
-    if (!isMatch) throw Error('User Not Found')
+    if (!isMatch) throw Error(Messages.userNotFound)
     if (!user.isVerified) {
       user.token = await generateToken({ _id: user?._id, userType: user?.userType })
     }
@@ -41,5 +38,3 @@ export const signUpService = async (payload) => {
     return user
   }
 }
-
-

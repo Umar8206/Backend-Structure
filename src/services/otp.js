@@ -12,13 +12,14 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { otpValidation, otpVerification } from '../validations/schema/otp.js'
 import { hashPassword } from '../helpers/functions.js'
+import { Messages } from '../constants/messages.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export const sendOtpService = async (payload) => {
   validate(payload, otpValidation)
   let user
   user = await findUserByEmailOrPhone(payload)
-  if (!user?._id) throw new Error('User Not Found')
+  if (!user?._id) throw new Error(Messages.userNotFound)
   const otp = await generateOtp()
   const createPayload = {
     email: payload?.email,

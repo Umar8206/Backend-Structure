@@ -1,4 +1,4 @@
-import { forgotPasswordService } from '../services/user.js'
+import { forgotPasswordService, saveUserProfile } from '../services/user.js'
 import { uploadToCloudinary } from '../utils/cloudinary.js'
 
 export const forgotPassword = async (req, res, next) => {
@@ -19,10 +19,11 @@ export const forgotPassword = async (req, res, next) => {
 export const uploadProfile = async (req, res, next) => {
   try {
     const payload = {
-      profile: req.file,
+      profile: req.file?.path,
+      userId: req.context.userId,
     }
     console.log("uploadProfile", payload?.profile);
-    res.body.data=await uploadToCloudinary(payload?.profile)
+    res.body.data=await saveUserProfile(payload)
     return res.json(res.body)
   } catch (error) {
     next(error)

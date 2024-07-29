@@ -3,18 +3,19 @@ import config from './config/config.js'
 import morgan from './config/morgan.js'
 import helmet from 'helmet'
 import cors from 'cors'
+import http from 'http';
 import mongoSanitize from 'express-mongo-sanitize'
 import errorHandler from './middlewares/error.js'
 import router from './routes/index.js'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { requestMiddleWare } from './middlewares/request.js'
-const app = express()
 import expressStatusMonitor from 'express-status-monitor'
+const app = express()
 
 // set security HTTP headers
 app.use(helmet())
 
-//status monitoring
+// const io = initializeSocket(server);//status monitoring
 app.use(expressStatusMonitor());
 
 // parse json request body
@@ -31,8 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan)
 
 // sanitize request data
-app.use(mongoSanitize())
-
+app.use(mongoSanitize()) 
 // Request Middleware
 app.use(requestMiddleWare)
 
@@ -55,4 +55,4 @@ app.use((req, res, next) => {
 // error handling middleware
 app.use(errorHandler)
 
-export default app
+export {app} 
